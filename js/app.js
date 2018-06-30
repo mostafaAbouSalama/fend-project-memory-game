@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-
+DeckOfCardsArray = Array.from(document.getElementsByClassName("card"));
 
 /*
  * Display the cards on the page
