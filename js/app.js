@@ -1,7 +1,31 @@
+// Declaring all needed functions
+
+// Function that flips a card open
+function flipThisCard(event) {
+  let thisCard = event.target;
+  if (thisCard.className === "card") {
+    thisCard.className = "card open show";
+  }
+}
+
+// Function that stores face-up cards in an array
+function storeMeInOpenArray(event) {
+  ArrayOfOpenCards.push(event.target);
+}
+
+document.querySelector(".deck").addEventListener("click",function(){
+  if (event.target.nodeName === "LI") {
+    event.preventDefault();
+    flipThisCard(event);
+    storeMeInOpenArray(event);
+  }
+});
+
 /*
  * Create a list that holds all of your cards
  */
-DeckOfCardsArray = Array.from(document.getElementsByClassName("card"));
+let DeckOfCardsArray = Array.from(document.getElementsByClassName("card"));
+let ArrayOfOpenCards = [];
 
 /*
  * Display the cards on the page
@@ -24,7 +48,6 @@ function shuffle(array) {
 
     return array;
 }
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
