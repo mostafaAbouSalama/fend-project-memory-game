@@ -14,7 +14,7 @@ function storeMeInOpenArray(event) {
 }
 
 // Function that flips down two last cards if they do not match
-function pairDoNotMatch(OpenCardsArray) {
+function pairDoNotMatch(openCardsArray) {
   let i = openCardsArray.length - 1;
   openCardsArray[i].className = "card";
   openCardsArray[i - 1].className = "card";
@@ -27,11 +27,10 @@ function compareTwoCards(event) {
   if (ArrayOfOpenCards.length % 2 === 0) {
     let i = ArrayOfOpenCards.length - 1;
     if (ArrayOfOpenCards[i].lastElementChild.className === ArrayOfOpenCards[i - 1].lastElementChild.className) {
-        ArrayOfOpenCards[i].className = "match";
-        ArrayOfOpenCards[i - 1].className = "match";
-      } else {
-        pairDoNotMatch(ArrayOfOpenCards);
-      }
+      ArrayOfOpenCards[i].className = "card match";
+      ArrayOfOpenCards[i - 1].className = "card match";
+    } else {
+      pairDoNotMatch(ArrayOfOpenCards);
     }
   }
 }
