@@ -13,11 +13,35 @@ function storeMeInOpenArray(event) {
   ArrayOfOpenCards.push(event.target);
 }
 
+// Function that flips down two last cards if they do not match
+function pairDoNotMatch(OpenCardsArray) {
+  let i = openCardsArray.length - 1;
+  openCardsArray[i].className = "card";
+  openCardsArray[i - 1].className = "card";
+  openCardsArray.pop();
+  openCardsArray.pop();
+}
+
+// Function that checks the array of open cards to see if there is two cards in it and compare them
+function compareTwoCards(event) {
+  if (ArrayOfOpenCards.length % 2 === 0) {
+    let i = ArrayOfOpenCards.length - 1;
+    if (ArrayOfOpenCards[i].lastElementChild.className === ArrayOfOpenCards[i - 1].lastElementChild.className) {
+        ArrayOfOpenCards[i].className = "match";
+        ArrayOfOpenCards[i - 1].className = "match";
+      } else {
+        pairDoNotMatch(ArrayOfOpenCards);
+      }
+    }
+  }
+}
+
 document.querySelector(".deck").addEventListener("click",function(){
   if (event.target.nodeName === "LI") {
     event.preventDefault();
     flipThisCard(event);
     storeMeInOpenArray(event);
+    compareTwoCards(event);
   }
 });
 
