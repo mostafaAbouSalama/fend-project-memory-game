@@ -3,24 +3,26 @@
 // Function that flips a card open and check to see if it was already flipped up before
 function flipThisCard(event) {
   let thisCard = event.target;
-  for (let i = 0; i < deckOfCardsArray.length; i++) {
-    if (deckOfCardsArray[i] === thisCard) {
-      if (openCardsInDeck.length % 2 === 0) {
-        openCardsInDeck.push(deckOfCardsArray[i]);
-        thisCard.className = "card open show";
-      } else {
-        openCardsInDeck.push(deckOfCardsArray[i]);
+  if (thisCard.className !== "card match") {
+    for (let i = 0; i < deckOfCardsArray.length; i++) {
+      if (deckOfCardsArray[i] === thisCard) {
+        if (openCardsInDeck.length % 2 === 0) {
+          openCardsInDeck.push(deckOfCardsArray[i]);
+          thisCard.className = "card open show";
+        } else {
+          openCardsInDeck.push(deckOfCardsArray[i]);
+        }
       }
     }
-  }
-  if (openCardsInDeck.length % 2 === 0) {
-    let i = openCardsInDeck.length - 1;
-    if (openCardsInDeck[i] !== openCardsInDeck[i - 1]) {
-      if (thisCard.className === "card") {
-        thisCard.className = "card open show";
+    if (openCardsInDeck.length % 2 === 0) {
+      let i = openCardsInDeck.length - 1;
+      if (openCardsInDeck[i] !== openCardsInDeck[i - 1]) {
+        if (thisCard.className === "card") {
+          thisCard.className = "card open show";
+        }
+      } else {
+        openCardsInDeck.pop();
       }
-    } else {
-      openCardsInDeck.pop();
     }
   }
 }
@@ -52,11 +54,13 @@ function pairDoNotMatch(openCardsArray) {
 function compareTwoCards(event) {
   if (arrayOfOpenCards.length % 2 === 0) {
     let i = arrayOfOpenCards.length - 1;
-    if (arrayOfOpenCards[i].lastElementChild.className === arrayOfOpenCards[i - 1].lastElementChild.className) {
-      arrayOfOpenCards[i].className = "card match";
-      arrayOfOpenCards[i - 1].className = "card match";
-    } else {
-      pairDoNotMatch(arrayOfOpenCards);
+    if (arrayOfOpenCards[i - 1].className === "card open show") {
+      if (arrayOfOpenCards[i].lastElementChild.className === arrayOfOpenCards[i - 1].lastElementChild.className) {
+        arrayOfOpenCards[i].className = "card match";
+        arrayOfOpenCards[i - 1].className = "card match";
+      } else {
+        pairDoNotMatch(arrayOfOpenCards);
+      }
     }
   }
 }
