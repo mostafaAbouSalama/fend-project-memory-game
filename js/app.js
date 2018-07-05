@@ -1,16 +1,42 @@
 // Declaring all needed functions
 
-// Function that flips a card open
+// Function that flips a card open and check to see if it was already flipped up before
 function flipThisCard(event) {
   let thisCard = event.target;
-  if (thisCard.className === "card") {
-    thisCard.className = "card open show";
+  for (let i = 0; i < deckOfCardsArray.length; i++) {
+    if (deckOfCardsArray[i] === thisCard) {
+      if (openCardsInDeck.length % 2 === 0) {
+        openCardsInDeck.push(deckOfCardsArray[i]);
+        thisCard.className = "card open show";
+      } else {
+        openCardsInDeck.push(deckOfCardsArray[i]);
+      }
+    }
+  }
+  if (openCardsInDeck.length % 2 === 0) {
+    let i = openCardsInDeck.length - 1;
+    if (openCardsInDeck[i] !== openCardsInDeck[i - 1]) {
+      if (thisCard.className === "card") {
+        thisCard.className = "card open show";
+      }
+    } else {
+      openCardsInDeck.pop();
+    }
   }
 }
 
 // Function that stores face-up cards in an array
 function storeMeInOpenArray(event) {
-  ArrayOfOpenCards.push(event.target);
+  // if (openCardsInDeck.length % 2 === 0) {
+  //   if (event.target.className === "card open show") {
+  //     arrayOfOpenCards.push(event.target);
+  //   }
+  // } else if (openCardsInDeck.length === 1) {
+  //   if (event.target.className === "card open show") {
+  //     arrayOfOpenCards.push(event.target);
+  //   }
+  // }
+  arrayOfOpenCards = openCardsInDeck;
 }
 
 // Function that flips down two last cards if they do not match
@@ -24,13 +50,13 @@ function pairDoNotMatch(openCardsArray) {
 
 // Function that checks the array of open cards to see if there is two cards in it and compare them
 function compareTwoCards(event) {
-  if (ArrayOfOpenCards.length % 2 === 0) {
-    let i = ArrayOfOpenCards.length - 1;
-    if (ArrayOfOpenCards[i].lastElementChild.className === ArrayOfOpenCards[i - 1].lastElementChild.className) {
-      ArrayOfOpenCards[i].className = "card match";
-      ArrayOfOpenCards[i - 1].className = "card match";
+  if (arrayOfOpenCards.length % 2 === 0) {
+    let i = arrayOfOpenCards.length - 1;
+    if (arrayOfOpenCards[i].lastElementChild.className === arrayOfOpenCards[i - 1].lastElementChild.className) {
+      arrayOfOpenCards[i].className = "card match";
+      arrayOfOpenCards[i - 1].className = "card match";
     } else {
-      pairDoNotMatch(ArrayOfOpenCards);
+      pairDoNotMatch(arrayOfOpenCards);
     }
   }
 }
@@ -47,8 +73,9 @@ document.querySelector(".deck").addEventListener("click",function(){
 /*
  * Create a list that holds all of your cards
  */
-let DeckOfCardsArray = Array.from(document.getElementsByClassName("card"));
-let ArrayOfOpenCards = [];
+let deckOfCardsArray = Array.from(document.getElementsByClassName("card"));
+let arrayOfOpenCards = [];
+let openCardsInDeck = [];
 
 /*
  * Display the cards on the page
