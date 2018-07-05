@@ -56,8 +56,10 @@ function compareTwoCards(event) {
     let i = arrayOfOpenCards.length - 1;
     if (arrayOfOpenCards[i - 1].className === "card open show") {
       if (arrayOfOpenCards[i].lastElementChild.className === arrayOfOpenCards[i - 1].lastElementChild.className) {
-        arrayOfOpenCards[i].className = "card match";
-        arrayOfOpenCards[i - 1].className = "card match";
+        setTimeout(function () {
+          arrayOfOpenCards[i].className = "card match";
+          arrayOfOpenCards[i - 1].className = "card match";
+        }, 500);
       } else {
         pairDoNotMatch(arrayOfOpenCards);
       }
